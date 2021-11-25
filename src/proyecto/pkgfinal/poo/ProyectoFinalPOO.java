@@ -5,6 +5,8 @@
  */
 package proyecto.pkgfinal.poo;
 
+import formularios.FrmPrincipal;
+
 /**
  *
  * @author Gabox
@@ -16,6 +18,9 @@ public class ProyectoFinalPOO {
      */
     public static void main(String[] args) {
         // TODO code application logic here
+        FrmPrincipal principal = new FrmPrincipal();
+        principal.setVisible(true);
+        principal.setLocationRelativeTo(null);
     }
     
 }

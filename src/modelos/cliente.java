@@ -9,7 +9,7 @@ package modelos;
  *
  * @author Gabox
  */
-public class cliente {
+public class Cliente {
     
     private String apellios;
     private String cedula;
@@ -20,10 +20,10 @@ public class cliente {
     private String profesion;
     private boolean sexo;
 
-    public cliente() {
+    public Cliente() {
     }
 
-    public cliente(String apellios, String cedula, String direccionDomicilo, int edad, String estadoCivil, String nombres, String profesion, boolean sexo) {
+    public Cliente(String apellios, String cedula, String direccionDomicilo, int edad, String estadoCivil, String nombres, String profesion, boolean sexo) {
         this.apellios = apellios;
         this.cedula = cedula;
         this.direccionDomicilo = direccionDomicilo;

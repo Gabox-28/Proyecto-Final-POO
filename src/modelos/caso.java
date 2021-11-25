@@ -9,17 +9,17 @@ package modelos;
  *
  * @author Gabox
  */
-public class caso {
+public class Caso {
     
     private String descripcionProblema;
     private int estado;
     private int fecha;
     private String tipoCaso;
 
-    public caso() {
+    public Caso() {
     }
 
-    public caso(String descripcionProblema, int estado, int fecha, String tipoCaso) {
+    public Caso(String descripcionProblema, int estado, int fecha, String tipoCaso) {
         this.descripcionProblema = descripcionProblema;
         this.estado = estado;
         this.fecha = fecha;

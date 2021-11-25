@@ -9,16 +9,18 @@ package modelos;
  *
  * @author Gabox
  */
-public class caso_Laboral {
+public class Caso_Laboral {
     
+    public Cliente clienteL;
+    public Caso casoL;
     private float montoALitigar;
     private boolean poderGeneralJudicial;
     private int porcentajeGanancia;
 
-    public caso_Laboral() {
+    public Caso_Laboral() {
     }
 
-    public caso_Laboral(float montoALitigar, boolean poderGeneralJudicial, int porcentajeGanancia) {
+    public Caso_Laboral(float montoALitigar, boolean poderGeneralJudicial, int porcentajeGanancia) {
         this.montoALitigar = montoALitigar;
         this.poderGeneralJudicial = poderGeneralJudicial;
         this.porcentajeGanancia = porcentajeGanancia;

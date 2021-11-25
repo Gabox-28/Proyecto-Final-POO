@@ -7,17 +7,18 @@ package modelos;
 
 /**
  *
- * @author Gabox
+ * @author Usuario
  */
-public class caso_Penal {
-    
+public class Caso_Penal {
+    public Cliente clienteP;
+    public Caso casoP;
     private float honorarios;
     private boolean nombramientoDefensor;
 
-    public caso_Penal() {
+    public Caso_Penal() {
     }
 
-    public caso_Penal(float honorarios, boolean nombramientoDefensor) {
+    public Caso_Penal(float honorarios, boolean nombramientoDefensor) {
         this.honorarios = honorarios;
         this.nombramientoDefensor = nombramientoDefensor;
     }
@@ -37,7 +38,5 @@ public class caso_Penal {
     public void setNombramientoDefensor(boolean nombramientoDefensor) {
         this.nombramientoDefensor = nombramientoDefensor;
     }
-    
-    
     
 }
