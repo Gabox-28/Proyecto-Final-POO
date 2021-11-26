@@ -129,6 +129,9 @@
         <Property name="horizontalTextPosition" type="int" value="0"/>
         <Property name="verticalTextPosition" type="int" value="3"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="BtnNuevoActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="BtnGuardar">
       <Properties>
@@ -140,6 +143,9 @@
         <Property name="horizontalTextPosition" type="int" value="0"/>
         <Property name="verticalTextPosition" type="int" value="3"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="BtnGuardarActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="BtnEliminar">
       <Properties>
@@ -223,8 +229,8 @@
                           <Component id="ComboBoxPGJ" min="-2" pref="77" max="-2" attributes="0"/>
                           <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                       </Group>
-                      <Component id="tfMonto" max="32767" attributes="0"/>
-                      <Component id="TFGanancia" max="32767" attributes="0"/>
+                      <Component id="TfMontoLitigar" max="32767" attributes="0"/>
+                      <Component id="TfPorcentajeGanancia" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
@@ -236,7 +242,7 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="LabelMontoLitigar" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="tfMonto" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="TfMontoLitigar" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
@@ -246,7 +252,7 @@
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jLabel5" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="TFGanancia" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="TfPorcentajeGanancia" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace pref="21" max="32767" attributes="0"/>
               </Group>
@@ -256,20 +262,20 @@
       <SubComponents>
         <Component class="javax.swing.JLabel" name="LabelMontoLitigar">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Monto a Litigar"/>
+            <Property name="text" type="java.lang.String" value="Monto a litigar"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel4">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Poder General Judicial"/>
+            <Property name="text" type="java.lang.String" value="Poder general judicial"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="jLabel5">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Porcentaje de Ganancia"/>
+            <Property name="text" type="java.lang.String" value="Porcentaje de ganancia"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="tfMonto">
+        <Component class="javax.swing.JTextField" name="TfMontoLitigar">
         </Component>
         <Component class="javax.swing.JComboBox" name="ComboBoxPGJ">
           <Properties>
@@ -287,7 +293,7 @@
             <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
           </AuxValues>
         </Component>
-        <Component class="javax.swing.JTextField" name="TFGanancia">
+        <Component class="javax.swing.JTextField" name="TfPorcentajeGanancia">
         </Component>
       </SubComponents>
     </Container>

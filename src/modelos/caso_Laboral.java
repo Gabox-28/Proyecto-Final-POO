@@ -11,7 +11,7 @@ package modelos;
  */
 public class Caso_Laboral {
     
-    public Cliente clienteL;
+    public cliente clienteL;
     public Caso casoL;
     private float montoALitigar;
     private boolean poderGeneralJudicial;

@@ -30,23 +30,16 @@ public class FrmPrincipal extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        BtnCasoP = new javax.swing.JButton();
         BtnCasoC = new javax.swing.JButton();
         BtnCasoL = new javax.swing.JButton();
+        BtnCasoP = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Registros de Libros");
 
         jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-
-        BtnCasoP.setIcon(new javax.swing.ImageIcon(getClass().getResource("/formularios/iconos/suspect_criminal_crime_arrested_icon_191291.png"))); // NOI18N
-        BtnCasoP.setText("Casos Penales");
-        BtnCasoP.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BtnCasoPActionPerformed(evt);
-            }
-        });
 
         BtnCasoC.setIcon(new javax.swing.ImageIcon(getClass().getResource("/formularios/iconos/306familymanwomangirlgirl2_100722.png"))); // NOI18N
         BtnCasoC.setText("Casos Civiles");
@@ -64,32 +57,41 @@ public class FrmPrincipal extends javax.swing.JFrame {
             }
         });
 
+        BtnCasoP.setIcon(new javax.swing.ImageIcon(getClass().getResource("/formularios/iconos/suspect_criminal_crime_arrested_icon_191291.png"))); // NOI18N
+        BtnCasoP.setText("Casos Penales");
+        BtnCasoP.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnCasoPActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(25, 25, 25)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(BtnCasoL)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(BtnCasoP, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(BtnCasoC, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addContainerGap()
+                .addComponent(BtnCasoL)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(BtnCasoC, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(BtnCasoP)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(BtnCasoP)
-                .addGap(18, 18, 18)
-                .addComponent(BtnCasoC)
-                .addGap(18, 18, 18)
-                .addComponent(BtnCasoL)
-                .addContainerGap(30, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(BtnCasoL)
+                    .addComponent(BtnCasoC)
+                    .addComponent(BtnCasoP)))
         );
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/formularios/iconos/scalesofthebalancetilts_escalasdelabalanza_4885 (1).png"))); // NOI18N
+
+        jLabel2.setFont(new java.awt.Font("Dialog", 0, 18)); // NOI18N
+        jLabel2.setText("Bienvenido");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -97,21 +99,24 @@ public class FrmPrincipal extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1)
-                .addGap(31, 31, 31)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(33, Short.MAX_VALUE))
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(253, 253, 253)
+                .addComponent(jLabel1))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(272, 272, 272)
+                .addComponent(jLabel2))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(29, Short.MAX_VALUE)
+                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(123, 123, 123))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(35, 35, 35))
         );
 
         pack();
@@ -122,15 +127,15 @@ public class FrmPrincipal extends javax.swing.JFrame {
         casoP.setVisible(true);
     }//GEN-LAST:event_BtnCasoPActionPerformed
 
-    private void BtnCasoCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnCasoCActionPerformed
-        // TODO add your handling code here:
-        casoC.setVisible(true);
-    }//GEN-LAST:event_BtnCasoCActionPerformed
-
     private void BtnCasoLActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnCasoLActionPerformed
         // TODO add your handling code here:
         casoL.setVisible(true);
     }//GEN-LAST:event_BtnCasoLActionPerformed
+
+    private void BtnCasoCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnCasoCActionPerformed
+        // TODO add your handling code here:
+        casoC.setVisible(true);
+    }//GEN-LAST:event_BtnCasoCActionPerformed
 
     /**
      * @param args the command line arguments
@@ -172,6 +177,7 @@ public class FrmPrincipal extends javax.swing.JFrame {
     private javax.swing.JButton BtnCasoL;
     private javax.swing.JButton BtnCasoP;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
 

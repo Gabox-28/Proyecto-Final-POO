@@ -9,69 +9,41 @@ package modelos;
  *
  * @author Gabox
  */
-public class Cliente {
+public class cliente {
     
-    private String apellios;
-    private String cedula;
-    private String direccionDomicilo;
-    private int edad;
-    private String estadoCivil;
+    private int cliente_id;
     private String nombres;
-    private String profesion;
+    private String apellidos;
+    private String direccionDomicilio;
     private boolean sexo;
+    private String estadoCivil;
+    private String profesion;
+    private int edad;
+    private String cedula;
+    private int estado;
 
-    public Cliente() {
+    public cliente() {
     }
 
-    public Cliente(String apellios, String cedula, String direccionDomicilo, int edad, String estadoCivil, String nombres, String profesion, boolean sexo) {
-        this.apellios = apellios;
-        this.cedula = cedula;
-        this.direccionDomicilo = direccionDomicilo;
-        this.edad = edad;
-        this.estadoCivil = estadoCivil;
+    public cliente(int cliente_id, String nombres, String apellidos, String direccionDomicilio, boolean sexo, String estadoCivil, String profesion, int edad, String cedula, int estado) {
+        this.cliente_id = cliente_id;
         this.nombres = nombres;
-        this.profesion = profesion;
+        this.apellidos = apellidos;
+        this.direccionDomicilio = direccionDomicilio;
         this.sexo = sexo;
-    }
-
-    public String getApellios() {
-        return apellios;
-    }
-
-    public void setApellios(String apellios) {
-        this.apellios = apellios;
-    }
-
-    public String getCedula() {
-        return cedula;
-    }
-
-    public void setCedula(String cedula) {
-        this.cedula = cedula;
-    }
-
-    public String getDireccionDomicilo() {
-        return direccionDomicilo;
-    }
-
-    public void setDireccionDomicilo(String direccionDomicilo) {
-        this.direccionDomicilo = direccionDomicilo;
-    }
-
-    public int getEdad() {
-        return edad;
-    }
-
-    public void setEdad(int edad) {
-        this.edad = edad;
-    }
-
-    public String getEstadoCivil() {
-        return estadoCivil;
-    }
-
-    public void setEstadoCivil(String estadoCivil) {
         this.estadoCivil = estadoCivil;
+        this.profesion = profesion;
+        this.edad = edad;
+        this.cedula = cedula;
+        this.estado = estado;
+    }
+
+    public int getCliente_id() {
+        return cliente_id;
+    }
+
+    public void setCliente_id(int cliente_id) {
+        this.cliente_id = cliente_id;
     }
 
     public String getNombres() {
@@ -82,12 +54,20 @@ public class Cliente {
         this.nombres = nombres;
     }
 
-    public String getProfesion() {
-        return profesion;
+    public String getApellidos() {
+        return apellidos;
     }
 
-    public void setProfesion(String profesion) {
-        this.profesion = profesion;
+    public void setApellidos(String apellidos) {
+        this.apellidos = apellidos;
+    }
+
+    public String getDireccionDomicilio() {
+        return direccionDomicilio;
+    }
+
+    public void setDireccionDomicilio(String direccionDomicilio) {
+        this.direccionDomicilio = direccionDomicilio;
     }
 
     public boolean isSexo() {
@@ -97,8 +77,46 @@ public class Cliente {
     public void setSexo(boolean sexo) {
         this.sexo = sexo;
     }
-    
-    
-    
+
+    public String getEstadoCivil() {
+        return estadoCivil;
+    }
+
+    public void setEstadoCivil(String estadoCivil) {
+        this.estadoCivil = estadoCivil;
+    }
+
+    public String getProfesion() {
+        return profesion;
+    }
+
+    public void setProfesion(String profesion) {
+        this.profesion = profesion;
+    }
+
+    public int getEdad() {
+        return edad;
+    }
+
+    public void setEdad(int edad) {
+        this.edad = edad;
+    }
+
+    public String getCedula() {
+        return cedula;
+    }
+
+    public void setCedula(String cedula) {
+        this.cedula = cedula;
+    }
+
+    public int getEstado() {
+        return estado;
+    }
+
+    public void setEstado(int estado) {
+        this.estado = estado;
+    }
+
     
 }

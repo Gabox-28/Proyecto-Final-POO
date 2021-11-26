@@ -5,12 +5,24 @@
  */
 package formularios;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Usuario
  */
 public class FrmCasoL extends javax.swing.JFrame {
 
+    boolean esNuevo;
+    int posActual = 0;
+    
+    private void limpiar(){
+        esNuevo = true;
+        TfMontoLitigar.setText(null);
+        TfPorcentajeGanancia.setText(null);
+        TfMontoLitigar.requestFocus();
+    }
+    
     /**
      * Creates new form FrmCasoL
      */
@@ -42,9 +54,9 @@ public class FrmCasoL extends javax.swing.JFrame {
         LabelMontoLitigar = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        tfMonto = new javax.swing.JTextField();
+        TfMontoLitigar = new javax.swing.JTextField();
         ComboBoxPGJ = new javax.swing.JComboBox<>();
-        TFGanancia = new javax.swing.JTextField();
+        TfPorcentajeGanancia = new javax.swing.JTextField();
 
         jLabel1.setText("jLabel1");
 
@@ -55,12 +67,22 @@ public class FrmCasoL extends javax.swing.JFrame {
         BtnNuevo.setFocusable(false);
         BtnNuevo.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         BtnNuevo.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        BtnNuevo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnNuevoActionPerformed(evt);
+            }
+        });
 
         BtnGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/formularios/iconos/Guardar.png"))); // NOI18N
         BtnGuardar.setText("Guardar");
         BtnGuardar.setFocusable(false);
         BtnGuardar.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         BtnGuardar.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        BtnGuardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnGuardarActionPerformed(evt);
+            }
+        });
 
         BtnEliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/formularios/iconos/Eliminar.png"))); // NOI18N
         BtnEliminar.setText("Eliminar");
@@ -88,13 +110,13 @@ public class FrmCasoL extends javax.swing.JFrame {
         BtnActualizarBD.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         BtnActualizarBD.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
 
-        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Caso Laboral", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Segoe UI", 0, 12), new java.awt.Color(0, 0, 0))); // NOI18N
+        jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(41, 43, 45)), "Caso Laboral", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Dialog", 0, 12), new java.awt.Color(0, 0, 0))); // NOI18N
 
-        LabelMontoLitigar.setText("Monto a Litigar");
+        LabelMontoLitigar.setText("Monto a litigar");
 
-        jLabel4.setText("Poder General Judicial");
+        jLabel4.setText("Poder general judicial");
 
-        jLabel5.setText("Porcentaje de Ganancia");
+        jLabel5.setText("Porcentaje de ganancia");
 
         ComboBoxPGJ.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Si", "No" }));
         ComboBoxPGJ.addActionListener(new java.awt.event.ActionListener() {
@@ -118,8 +140,8 @@ public class FrmCasoL extends javax.swing.JFrame {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(ComboBoxPGJ, javax.swing.GroupLayout.PREFERRED_SIZE, 77, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(tfMonto)
-                    .addComponent(TFGanancia))
+                    .addComponent(TfMontoLitigar)
+                    .addComponent(TfPorcentajeGanancia))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -128,7 +150,7 @@ public class FrmCasoL extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(LabelMontoLitigar)
-                    .addComponent(tfMonto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(TfMontoLitigar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
@@ -136,7 +158,7 @@ public class FrmCasoL extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
-                    .addComponent(TFGanancia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(TfPorcentajeGanancia, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(21, Short.MAX_VALUE))
         );
 
@@ -219,6 +241,25 @@ public class FrmCasoL extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_ComboBoxPGJActionPerformed
 
+    private void BtnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnGuardarActionPerformed
+        // TODO add your handling code here:
+         if(TfMontoLitigar.getText().equals(null)){
+            JOptionPane.showMessageDialog(this, "Debe ingresar el monto a litigar", "Caso Civil", JOptionPane.WARNING_MESSAGE);
+            this.TfMontoLitigar.requestFocus();
+            return;
+        }
+         if(TfPorcentajeGanancia.getText().equals(null)){
+            JOptionPane.showMessageDialog(this, "Debe ingresar un porcentaje ganancia", "Caso Civil", JOptionPane.WARNING_MESSAGE);
+            this.TfPorcentajeGanancia.requestFocus();
+            return;
+        }
+    }//GEN-LAST:event_BtnGuardarActionPerformed
+
+    private void BtnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnNuevoActionPerformed
+        // TODO add your handling code here:
+        limpiar();
+    }//GEN-LAST:event_BtnNuevoActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -263,7 +304,8 @@ public class FrmCasoL extends javax.swing.JFrame {
     private javax.swing.JButton BtnSiguiente;
     private javax.swing.JComboBox<String> ComboBoxPGJ;
     private javax.swing.JLabel LabelMontoLitigar;
-    private javax.swing.JTextField TFGanancia;
+    private javax.swing.JTextField TfMontoLitigar;
+    private javax.swing.JTextField TfPorcentajeGanancia;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
@@ -272,6 +314,5 @@ public class FrmCasoL extends javax.swing.JFrame {
     private javax.swing.JToolBar.Separator jSeparator3;
     private javax.swing.JToolBar.Separator jSeparator4;
     private javax.swing.JToolBar.Separator jSeparator7;
-    private javax.swing.JTextField tfMonto;
     // End of variables declaration//GEN-END:variables
 }

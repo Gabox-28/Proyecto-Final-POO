@@ -10,7 +10,7 @@ package modelos;
  * @author Usuario
  */
 public class Caso_Penal {
-    public Cliente clienteP;
+    public cliente clienteP;
     public Caso casoP;
     private float honorarios;
     private boolean nombramientoDefensor;
