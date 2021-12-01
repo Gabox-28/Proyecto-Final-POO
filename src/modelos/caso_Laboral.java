@@ -9,21 +9,41 @@ package modelos;
  *
  * @author Gabox
  */
-public class Caso_Laboral {
+public class Caso_Laboral extends Caso {
     
-    public cliente clienteL;
-    public Caso casoL;
+    private cliente clienteL;
+    private Caso casoL;
+    
     private float montoALitigar;
     private boolean poderGeneralJudicial;
     private int porcentajeGanancia;
+    private int estadoBD;
 
     public Caso_Laboral() {
     }
 
-    public Caso_Laboral(float montoALitigar, boolean poderGeneralJudicial, int porcentajeGanancia) {
+    public Caso_Laboral(int id_caso, String descripcionProblema, int fecha, String tipoCaso, int estadoCaso, float montoALitigar, boolean poderGeneralJudicial, int porcentajeGanancia, int estadoBD) {
+        super(id_caso, descripcionProblema, fecha, tipoCaso, estadoCaso);
         this.montoALitigar = montoALitigar;
         this.poderGeneralJudicial = poderGeneralJudicial;
         this.porcentajeGanancia = porcentajeGanancia;
+        this.estadoBD = estadoBD;
+    }
+
+    public cliente getClienteL() {
+        return clienteL;
+    }
+
+    public void setClienteL(cliente clienteL) {
+        this.clienteL = clienteL;
+    }
+
+    public Caso getCasoL() {
+        return casoL;
+    }
+
+    public void setCasoL(Caso casoL) {
+        this.casoL = casoL;
     }
 
     public float getMontoALitigar() {
@@ -49,15 +69,14 @@ public class Caso_Laboral {
     public void setPorcentajeGanancia(int porcentajeGanancia) {
         this.porcentajeGanancia = porcentajeGanancia;
     }
-    
-    public float calcularHonorarios(int porcentajeGanancia, float montoALitigar){
-        float honorarios = 0;
-        try{
-            honorarios = montoALitigar*(porcentajeGanancia / 100);
-            return honorarios;
-        }catch(Exception ex){
-            System.out.println(ex.getMessage());
-        }
-        return honorarios;
+
+    public int getEstadoBD() {
+        return estadoBD;
     }
+
+    public void setEstadoBD(int estadoBD) {
+        this.estadoBD = estadoBD;
+    }
+
+    
 }

@@ -9,21 +9,31 @@ package modelos;
  *
  * @author Gabox
  */
-public class Caso {
+public class Caso{
     
+    private int id_caso;
     private String descripcionProblema;
-    private int estado;
     private int fecha;
-    private String tipoCaso;
+    private String tipoCaso; //1 = Civil , 2 = Laboral, 3 = Penal
+    private int estadoCaso; // 1 = Abierto, 2 = Cerrado
 
     public Caso() {
     }
 
-    public Caso(String descripcionProblema, int estado, int fecha, String tipoCaso) {
+    public Caso(int id_caso, String descripcionProblema, int fecha, String tipoCaso, int estadoCaso) {
+        this.id_caso = id_caso;
         this.descripcionProblema = descripcionProblema;
-        this.estado = estado;
         this.fecha = fecha;
         this.tipoCaso = tipoCaso;
+        this.estadoCaso = estadoCaso;
+    }
+
+    public int getId_caso() {
+        return id_caso;
+    }
+
+    public void setId_caso(int id_caso) {
+        this.id_caso = id_caso;
     }
 
     public String getDescripcionProblema() {
@@ -32,14 +42,6 @@ public class Caso {
 
     public void setDescripcionProblema(String descripcionProblema) {
         this.descripcionProblema = descripcionProblema;
-    }
-
-    public int getEstado() {
-        return estado;
-    }
-
-    public void setEstado(int estado) {
-        this.estado = estado;
     }
 
     public int getFecha() {
@@ -57,7 +59,14 @@ public class Caso {
     public void setTipoCaso(String tipoCaso) {
         this.tipoCaso = tipoCaso;
     }
-    
-    
+
+    public int getEstadoCaso() {
+        return estadoCaso;
+    }
+
+    public void setEstadoCaso(int estadoCaso) {
+        this.estadoCaso = estadoCaso;
+    }
+
     
 }
