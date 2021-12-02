@@ -11,18 +11,16 @@ package modelos;
  */
 public class Caso_Laboral extends Caso {
     
-    private cliente clienteL;
-    private Caso casoL;
     
     private float montoALitigar;
-    private boolean poderGeneralJudicial;
+    private String poderGeneralJudicial;
     private int porcentajeGanancia;
     private int estadoBD;
 
     public Caso_Laboral() {
     }
 
-    public Caso_Laboral(int id_caso, String descripcionProblema, int fecha, String tipoCaso, int estadoCaso, float montoALitigar, boolean poderGeneralJudicial, int porcentajeGanancia, int estadoBD) {
+    public Caso_Laboral(int id_caso, String descripcionProblema, String fecha, String tipoCaso, String estadoCaso, float montoALitigar, String poderGeneralJudicial, int porcentajeGanancia, int estadoBD) {
         super(id_caso, descripcionProblema, fecha, tipoCaso, estadoCaso);
         this.montoALitigar = montoALitigar;
         this.poderGeneralJudicial = poderGeneralJudicial;
@@ -30,21 +28,9 @@ public class Caso_Laboral extends Caso {
         this.estadoBD = estadoBD;
     }
 
-    public cliente getClienteL() {
-        return clienteL;
-    }
 
-    public void setClienteL(cliente clienteL) {
-        this.clienteL = clienteL;
-    }
+    
 
-    public Caso getCasoL() {
-        return casoL;
-    }
-
-    public void setCasoL(Caso casoL) {
-        this.casoL = casoL;
-    }
 
     public float getMontoALitigar() {
         return montoALitigar;
@@ -54,13 +40,7 @@ public class Caso_Laboral extends Caso {
         this.montoALitigar = montoALitigar;
     }
 
-    public boolean isPoderGeneralJudicial() {
-        return poderGeneralJudicial;
-    }
-
-    public void setPoderGeneralJudicial(boolean poderGeneralJudicial) {
-        this.poderGeneralJudicial = poderGeneralJudicial;
-    }
+    
 
     public int getPorcentajeGanancia() {
         return porcentajeGanancia;
@@ -76,6 +56,14 @@ public class Caso_Laboral extends Caso {
 
     public void setEstadoBD(int estadoBD) {
         this.estadoBD = estadoBD;
+    }
+
+    public String getPoderGeneralJudicial() {
+        return poderGeneralJudicial;
+    }
+
+    public void setPoderGeneralJudicial(String poderGeneralJudicial) {
+        this.poderGeneralJudicial = poderGeneralJudicial;
     }
 
     

@@ -15,7 +15,7 @@ public class cliente {
     private String nombres;
     private String apellidos;
     private String direccionDomicilio;
-    private boolean sexo;
+    private String sexo;
     private String estadoCivil;
     private String profesion;
     private int edad;
@@ -25,7 +25,7 @@ public class cliente {
     public cliente() {
     }
 
-    public cliente(int cliente_id, String nombres, String apellidos, String direccionDomicilio, boolean sexo, String estadoCivil, String profesion, int edad, String cedula, int estado) {
+    public cliente(int cliente_id, String nombres, String apellidos, String direccionDomicilio, String sexo, String estadoCivil, String profesion, int edad, String cedula, int estado) {
         this.cliente_id = cliente_id;
         this.nombres = nombres;
         this.apellidos = apellidos;
@@ -70,11 +70,11 @@ public class cliente {
         this.direccionDomicilio = direccionDomicilio;
     }
 
-    public boolean isSexo() {
+        public String getSexo() {
         return sexo;
     }
 
-    public void setSexo(boolean sexo) {
+    public void setSexo(String sexo) {
         this.sexo = sexo;
     }
 
@@ -117,6 +117,8 @@ public class cliente {
     public void setEstado(int estado) {
         this.estado = estado;
     }
+
+
 
     
 }

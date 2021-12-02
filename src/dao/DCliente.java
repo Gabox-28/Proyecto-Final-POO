@@ -29,12 +29,12 @@ public class DCliente {
     public DCliente(){
         try{
             conn = conexion.obtenerConexion();
-            mostrarRegistros = conn.prepareStatement("Select * from cliente");
-            insertarRegistro = conn.prepareStatement("Insert Into cliente(first_name,"
-                    + " last_name, address, sex, civil_status, occupation, age, id) Values(?, ?, ?, ? , ?, ? ,?, ?)");
-            modificarRegistro = conn.prepareStatement("Update cliente set first_name = ?,"
-                    + " last_name = ?, address = ?, sex = ?, civil_status = ?, occupation = ?, age = ?, id = ? where cliente_id = ?");
-            eliminarRegistro = conn.prepareStatement("Delete From cliente where cliente_id = ?");
+            mostrarRegistros = conn.prepareStatement("Select * from Cliente");
+            insertarRegistro = conn.prepareStatement("Insert Into Cliente(cedula, first_name,"
+                    + " last_name, direccion, sex, civil_status, occupation, age) Values(?, ?, ?, ?, ?, ? ,?, ?)");
+            modificarRegistro = conn.prepareStatement("Update Cliente set cedula = ?, first_name = ?,"
+                    + " last_name = ?, direccion = ?, sex = ?, civil_status = ?, occupation = ?, age = ? where Cliente_id = ?");
+            eliminarRegistro = conn.prepareStatement("Delete From Cliente where Cliente_id = ?");
             lista = new ArrayList<>();
             
             lista = listarRegistro();
@@ -53,13 +53,13 @@ public class DCliente {
             while(rs.next()){
                 result.add(new cliente(
                         rs.getInt("cliente_id"),
-                        rs.getString("nombres"),
-                        rs.getString("apellios"),
-                        rs.getString("direccionDomicilio"),
-                        rs.getBoolean("sexo"),
-                        rs.getString("estadoCivil"),
-                        rs.getString("profesion"),
-                        rs.getInt("edad"),
+                        rs.getString("first_name"),
+                        rs.getString("last_name"),
+                        rs.getString("direccion"),
+                        rs.getString("sex"),
+                        rs.getString("civil_status"),
+                        rs.getString("occupation"),
+                        rs.getInt("age"),
                         rs.getString("cedula"),
                         1 // estado Original que viene desde la BD
                 ));
@@ -76,7 +76,7 @@ public class DCliente {
         return result;
     }
     
-    public int agregarCliente(int cliente_id, String nombres, String apellidos, String direccionDomicilio, boolean sexo, String estadoCivil, String profesion, int edad, String cedula, int estado){
+    public int agregarCliente(String nombres, String apellidos, String direccionDomicilio, String sexo, String estadoCivil, String profesion, int edad, String cedula){
         try{
             lista.add(new cliente(0, 
                     nombres, 
@@ -96,7 +96,7 @@ public class DCliente {
         return 0;
     }
     
-    public int editarCliente(int cliente_id, String nombres, String apellidos, String direccionDomicilio, boolean sexo, String estadoCivil, String profesion, int edad, String cedula, int estado){
+    public int editarCliente(int cliente_id, String nombres, String apellidos, String direccionDomicilio, String sexo, String estadoCivil, String profesion, int edad, String cedula){
         try{
             cliente cliente = new cliente(
                     cliente_id, 
@@ -115,7 +115,7 @@ public class DCliente {
                    a.setNombres(cliente.getNombres());
                    a.setApellidos(cliente.getApellidos());
                    a.setDireccionDomicilio(cliente.getDireccionDomicilio());
-                   a.setSexo(cliente.isSexo());
+                   a.setSexo(cliente.getSexo());
                    a.setEstadoCivil(cliente.getEstadoCivil());
                    a.setProfesion(cliente.getProfesion());
                    a.setEdad(cliente.getEdad());
@@ -148,14 +148,15 @@ public class DCliente {
     public int agregarRegistroBD(cliente cliente) {
         int result = 0;
         try {
-            insertarRegistro.setString(1, cliente.getNombres());
-            insertarRegistro.setString(2, cliente.getApellidos());
-            insertarRegistro.setString(3, cliente.getDireccionDomicilio());
-            insertarRegistro.setBoolean(4, cliente.isSexo());
-            insertarRegistro.setString(5, cliente.getEstadoCivil());
-            insertarRegistro.setString(6, cliente.getProfesion());
-            insertarRegistro.setInt(7, cliente.getEdad());
-            insertarRegistro.setString(8, cliente.getCedula());
+            insertarRegistro.setString(1, cliente.getCedula());
+            insertarRegistro.setString(2, cliente.getNombres());
+            insertarRegistro.setString(3, cliente.getApellidos());
+            insertarRegistro.setString(4, cliente.getDireccionDomicilio());
+            insertarRegistro.setString(5, cliente.getSexo());
+            insertarRegistro.setString(6, cliente.getEstadoCivil());
+            insertarRegistro.setString(7, cliente.getProfesion());
+            insertarRegistro.setInt(8, cliente.getEdad());
+            
             result = insertarRegistro.executeUpdate();
         } catch (SQLException ex) {
             ex.printStackTrace();
@@ -167,14 +168,14 @@ public class DCliente {
     public int modificarRegistroBD(cliente cliente) {
         int result = 0;
         try {
-            modificarRegistro.setString(1, cliente.getNombres());
-            modificarRegistro.setString(2, cliente.getApellidos());
-            modificarRegistro.setString(3, cliente.getDireccionDomicilio());
-            modificarRegistro.setBoolean(4, cliente.isSexo());
-            modificarRegistro.setString(5, cliente.getEstadoCivil());
-            modificarRegistro.setString(6, cliente.getProfesion());
-            modificarRegistro.setInt(7, cliente.getEdad());
-            modificarRegistro.setString(8, cliente.getCedula());
+            modificarRegistro.setString(1, cliente.getCedula());
+            modificarRegistro.setString(2, cliente.getNombres());
+            modificarRegistro.setString(3, cliente.getApellidos());
+            modificarRegistro.setString(4, cliente.getDireccionDomicilio());
+            modificarRegistro.setString(5, cliente.getSexo());
+            modificarRegistro.setString(6, cliente.getEstadoCivil());
+            modificarRegistro.setString(7, cliente.getProfesion());
+            modificarRegistro.setInt(8, cliente.getEdad());
             modificarRegistro.setInt(9, cliente.getCliente_id());
             result = modificarRegistro.executeUpdate();
         } catch (SQLException ex) {

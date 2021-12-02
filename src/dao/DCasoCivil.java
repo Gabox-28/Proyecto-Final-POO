@@ -29,12 +29,12 @@ public class DCasoCivil {
     public DCasoCivil() {
         try {
             conn = conexion.obtenerConexion();
-            mostrarCasoCivil = conn.prepareStatement("Select * from caso");
-            insertarCasoCivil = conn.prepareStatement("Insert Into caso(id_caso,"
-                    + " description, fecha_caso, id_cliente, honorarios, poder_general_judicial, monto_a_litigar, porcentaje_ganancia, nombramiento_defensor) Values(?, ?, ?, ?, ?, ?, ?, ?, ?)");
-            modificarCasoCivil = conn.prepareStatement("Update caso set description = ?,"
-                    + " fecha_caso = ?, id_cliente  = ?, honorarios = ?, poder_general_judicial = ?, monto_a_litigar = ?, porcentaje_ganancia = ?, nombramiento_defensor = ? where id_caso = ?");
-            eliminarCasoCivil = conn.prepareStatement("Delete From caso where id_caso = ?");
+            mostrarCasoCivil = conn.prepareStatement("Select * from Caso_Civil");
+            insertarCasoCivil = conn.prepareStatement("Insert Into Caso_Civil(tipoCaso,"
+                    + " descripcion, estadoCaso, fecha, honorarios, poderGeneralJudicial) Values(?, ?, ?, ?, ?, ?)");
+            modificarCasoCivil = conn.prepareStatement("Update Caso_Civil set tipoCaso = ?,"
+                    + " descripcion = ?, estadoCaso = ?, fecha = ?, honorarios = ?, poderGeneralJudicial = ? where CasoC_id = ?");
+            eliminarCasoCivil = conn.prepareStatement("Delete From Caso_Civil where casoC_id = ?");
             listaCasoCivil = new ArrayList<>();
             
             listaCasoCivil = listarRegistro();
@@ -52,13 +52,13 @@ public class DCasoCivil {
             result = new ArrayList<>();
             while(rs.next()){
                 result.add(new Caso_Civil(
-                        rs.getInt("id_caso"),
-                        rs.getString("descripcionProblema"),
-                        rs.getInt("fecha"),
+                        rs.getInt("casoC_id"),
+                        rs.getString("descripcion"),
+                        rs.getString("fecha"),
                         rs.getString("tipoCaso"),
-                        rs.getInt("estadoCaso"),
+                        rs.getString("estadoCaso"),
                         rs.getFloat("honorarios"),
-                        rs.getBoolean("poderGeneralJudicial"),
+                        rs.getString("poderGeneralJudicial"),
                         1 // estado Original que viene desde la BD
                 ));
             }
@@ -74,14 +74,14 @@ public class DCasoCivil {
         return result;
     }
     
-    public int agregarCasoCivil(int id_caso, String descripcionProblema, int fecha, String tipoCaso, int estadoCaso, float honorarios, boolean poderGeneralJudicial, int estadoBD){
+    public int agregarCasoCivil(String descripcionProblema, String fecha, String estadoCaso, float honorarios, String poderGeneralJudicial){
         int b = 0;
         try{
             listaCasoCivil.add(new Caso_Civil(0,
                     descripcionProblema,
                     fecha,
                     "Civil",
-                    1,
+                    estadoCaso,
                     honorarios,
                     poderGeneralJudicial,
                     4 // estado Nuevo registro sin guardar en la BD 
@@ -93,14 +93,14 @@ public class DCasoCivil {
         return b;
     }
     
-    public int editarCasoCivil(int id_caso, String descripcionProblema, int fecha, String tipoCaso, int estadoCaso, float honorarios, boolean poderGeneralJudicial, int estadoBD){
+    public int editarCasoCivil(int id_caso, String descripcionProblema, String fecha, String estadoCaso, float honorarios, String poderGeneralJudicial){
         try{
             Caso_Civil Caso_Civil  = new Caso_Civil(
                     id_caso,
                     descripcionProblema,
                     fecha,
                     "Civil",
-                    1,
+                    estadoCaso,
                     honorarios,
                     poderGeneralJudicial,
                     2 // estado Modificado en la lista, no guardado en la BD
@@ -111,7 +111,7 @@ public class DCasoCivil {
                    a.setFecha(Caso_Civil.getFecha());
                    a.setTipoCaso(Caso_Civil.getTipoCaso());
                    a.setHonorarios(Caso_Civil.getHonorarios());
-                   a.setPoderGeneralJudicial(Caso_Civil.isPoderGeneralJudicial());
+                   a.setPoderGeneralJudicial(Caso_Civil.getPoderGeneralJudicial());
                    if(a.getEstadoBD()!=0) a.setEstadoBD(Caso_Civil.getEstadoBD()); 
                    return 1;
                } 
@@ -140,12 +140,12 @@ public class DCasoCivil {
     public int agregarRegistroBD(Caso_Civil Caso_Civil) {
         int result = 0;
         try {
-            insertarCasoCivil.setString(1, Caso_Civil.getDescripcionProblema());
-            insertarCasoCivil.setInt(2, Caso_Civil.getFecha());
-            insertarCasoCivil.setString(3, Caso_Civil.getTipoCaso());
-            insertarCasoCivil.setInt(4, Caso_Civil.getEstadoCaso());
+            insertarCasoCivil.setString(1, Caso_Civil.getTipoCaso());
+            insertarCasoCivil.setString(2, Caso_Civil.getDescripcionProblema());
+            insertarCasoCivil.setString(3, Caso_Civil.getEstadoCaso());
+            insertarCasoCivil.setString(4, Caso_Civil.getFecha());
             insertarCasoCivil.setFloat(5, Caso_Civil.getHonorarios());
-            insertarCasoCivil.setBoolean(6, Caso_Civil.isPoderGeneralJudicial());
+            insertarCasoCivil.setString(6, Caso_Civil.getPoderGeneralJudicial());
             result = insertarCasoCivil.executeUpdate();
         } catch (SQLException ex) {
             ex.printStackTrace();
@@ -157,12 +157,12 @@ public class DCasoCivil {
     public int modificarRegistroBD(Caso_Civil Caso_Civil) {
         int result = 0;
         try {
-            modificarCasoCivil.setString(1, Caso_Civil.getDescripcionProblema());
-            modificarCasoCivil.setInt(2, Caso_Civil.getFecha());
-            modificarCasoCivil.setString(3, Caso_Civil.getTipoCaso());
-            modificarCasoCivil.setInt(4, Caso_Civil.getEstadoCaso());
+            modificarCasoCivil.setString(1, Caso_Civil.getTipoCaso());
+            modificarCasoCivil.setString(2, Caso_Civil.getDescripcionProblema());
+            modificarCasoCivil.setString(3, Caso_Civil.getEstadoCaso());
+            modificarCasoCivil.setString(4, Caso_Civil.getFecha());
             modificarCasoCivil.setFloat(5, Caso_Civil.getHonorarios());
-            modificarCasoCivil.setBoolean(6, Caso_Civil.isPoderGeneralJudicial());
+            modificarCasoCivil.setString(6, Caso_Civil.getPoderGeneralJudicial());
             result = modificarCasoCivil.executeUpdate();
         } catch (SQLException ex) {
             ex.printStackTrace();

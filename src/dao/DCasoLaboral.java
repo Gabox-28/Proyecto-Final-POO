@@ -29,12 +29,12 @@ public class DCasoLaboral {
     public DCasoLaboral() {
         try {
             conn = conexion.obtenerConexion();
-            mostrarCasoLaboral = conn.prepareStatement("Select * from caso");
-            insertarCasoLaboral = conn.prepareStatement("Insert Into caso(id_caso,"
-                    + " description, fecha_caso, id_cliente, honorarios, poder_general_judicial, monto_a_litigar, porcentaje_ganancia, nombramiento_defensor) Values(?, ?, ?, ?, ?, ?, ?, ?, ?)");
-            modificarCasoLaboral = conn.prepareStatement("Update caso set description = ?,"
-                    + " fecha_caso = ?, id_cliente  = ?, honorarios = ?, poder_general_judicial = ?, monto_a_litigar = ?, porcentaje_ganancia = ?, nombramiento_defensor = ? where id_caso = ?");
-            eliminarCasoLaboral = conn.prepareStatement("Delete From caso where id_caso = ?");
+            mostrarCasoLaboral = conn.prepareStatement("Select * from Caso_Laboral");
+            insertarCasoLaboral = conn.prepareStatement("Insert Into Caso_Laboral(tipoCaso,"
+                    + " descripcion, estadoCaso, fecha, montoALitigar, porcentajeGanancia, poderGeneralJudicial) Values(?, ?, ?, ?, ?, ?, ?)");
+            modificarCasoLaboral = conn.prepareStatement("Update Caso_Laboral set tipoCaso = ?,"
+                    + " descripcion = ?, estadoCaso = ?, fecha = ?, montoALitigar = ?, porcentajeGanancia = ?, poderGeneralJudicial = ? where casoL_id = ?");
+            eliminarCasoLaboral = conn.prepareStatement("Delete From Caso_Laboral where CasoL_id = ?");
             listaCasoLaboral = new ArrayList<>();
             
             listaCasoLaboral = listarRegistro();
@@ -52,13 +52,13 @@ public class DCasoLaboral {
             result = new ArrayList<>();
             while(rs.next()){
                 result.add(new Caso_Laboral(
-                        rs.getInt("id_caso"),
-                        rs.getString("descripcionProblema"),
-                        rs.getInt("fecha"),
+                        rs.getInt("CasoL_id"),
+                        rs.getString("descripcion"),
+                        rs.getString("fecha"),
                         rs.getString("tipoCaso"),
-                        rs.getInt("estadoCaso"),
+                        rs.getString("estadoCaso"),
                         rs.getFloat("montoALitigar"),
-                        rs.getBoolean("poderGeneralJudicial"),
+                        rs.getString("poderGeneralJudicial"),
                         rs.getInt("porcentajeGanancia"),
                         1 // estado Original que viene desde la BD
                 ));
@@ -75,14 +75,14 @@ public class DCasoLaboral {
         return result;
     }
     
-     public int agregarCasoLaboral(int id_caso, String descripcionProblema, int fecha, String tipoCaso, int estadoCaso, float montoALitigar, boolean poderGeneralJudicial, int porcentajeGanancia, int estadoBD){
+     public int agregarCasoLaboral(String descripcionProblema, String fecha, String estadoCaso, float montoALitigar, String poderGeneralJudicial, int porcentajeGanancia){
         int b = 0;
         try{
             listaCasoLaboral.add(new Caso_Laboral(0,
                     descripcionProblema,
                     fecha,
                     "Laboral",
-                    1,
+                    estadoCaso,
                     montoALitigar,
                     poderGeneralJudicial,
                     porcentajeGanancia,
@@ -95,14 +95,14 @@ public class DCasoLaboral {
         return b;
     }
      
-     public int editarCasoLaboral(int id_caso, String descripcionProblema, int fecha, String tipoCaso, int estadoCaso, float montoALitigar, boolean poderGeneralJudicial, int porcentajeGanancia, int estadoBD){
+     public int editarCasoLaboral(int id_caso, String descripcionProblema, String fecha, String estadoCaso, float montoALitigar, String poderGeneralJudicial, int porcentajeGanancia){
         try{
             Caso_Laboral Caso_Laboral  = new Caso_Laboral(
                     id_caso,
                     descripcionProblema,
                     fecha,
                     "Laboral",
-                    1,
+                    estadoCaso,
                     montoALitigar,
                     poderGeneralJudicial,
                     porcentajeGanancia,
@@ -114,7 +114,7 @@ public class DCasoLaboral {
                    a.setFecha(Caso_Laboral.getFecha());
                    a.setTipoCaso(Caso_Laboral.getTipoCaso());
                    a.setMontoALitigar(Caso_Laboral.getMontoALitigar());
-                   a.setPoderGeneralJudicial(Caso_Laboral.isPoderGeneralJudicial());
+                   a.setPoderGeneralJudicial(Caso_Laboral.getPoderGeneralJudicial());
                    a.setPorcentajeGanancia(Caso_Laboral.getPorcentajeGanancia());
                    if(a.getEstadoBD()!=0) a.setEstadoBD(Caso_Laboral.getEstadoBD()); 
                    return 1;
@@ -144,13 +144,14 @@ public class DCasoLaboral {
      public int agregarRegistroBD(Caso_Laboral Caso_Laboral) {
         int result = 0;
         try {
-            insertarCasoLaboral.setString(1, Caso_Laboral.getDescripcionProblema());
-            insertarCasoLaboral.setInt(2, Caso_Laboral.getFecha());
-            insertarCasoLaboral.setString(3, Caso_Laboral.getTipoCaso());
-            insertarCasoLaboral.setInt(4, Caso_Laboral.getEstadoCaso());
+            insertarCasoLaboral.setString(1, Caso_Laboral.getTipoCaso());
+            insertarCasoLaboral.setString(2, Caso_Laboral.getDescripcionProblema());
+            insertarCasoLaboral.setString(3, Caso_Laboral.getEstadoCaso());
+            insertarCasoLaboral.setString(4, Caso_Laboral.getFecha());
             insertarCasoLaboral.setFloat(5, Caso_Laboral.getMontoALitigar());
-            insertarCasoLaboral.setBoolean(6, Caso_Laboral.isPoderGeneralJudicial());
-            insertarCasoLaboral.setInt(5, Caso_Laboral.getPorcentajeGanancia());
+            insertarCasoLaboral.setInt(6, Caso_Laboral.getPorcentajeGanancia());
+            insertarCasoLaboral.setString(7, Caso_Laboral.getPoderGeneralJudicial());
+            
             result = insertarCasoLaboral.executeUpdate();
         } catch (SQLException ex) {
             ex.printStackTrace();
@@ -162,13 +163,14 @@ public class DCasoLaboral {
      public int modificarRegistroBD(Caso_Laboral Caso_Laboral) {
         int result = 0;
         try {
-            modificarCasoLaboral.setString(1, Caso_Laboral.getDescripcionProblema());
-            modificarCasoLaboral.setInt(2, Caso_Laboral.getFecha());
-            modificarCasoLaboral.setString(3, Caso_Laboral.getTipoCaso());
-            modificarCasoLaboral.setInt(4, Caso_Laboral.getEstadoCaso());
+            modificarCasoLaboral.setString(1, Caso_Laboral.getTipoCaso());
+            modificarCasoLaboral.setString(2, Caso_Laboral.getDescripcionProblema());
+            modificarCasoLaboral.setString(3, Caso_Laboral.getEstadoCaso());
+            modificarCasoLaboral.setString(4, Caso_Laboral.getFecha());
             modificarCasoLaboral.setFloat(5, Caso_Laboral.getMontoALitigar());
-            modificarCasoLaboral.setBoolean(6, Caso_Laboral.isPoderGeneralJudicial());
-            modificarCasoLaboral.setFloat(5, Caso_Laboral.getPorcentajeGanancia());
+            modificarCasoLaboral.setFloat(6, Caso_Laboral.getPorcentajeGanancia());
+            modificarCasoLaboral.setString(7, Caso_Laboral.getPoderGeneralJudicial());
+           
             result = modificarCasoLaboral.executeUpdate();
         } catch (SQLException ex) {
             ex.printStackTrace();

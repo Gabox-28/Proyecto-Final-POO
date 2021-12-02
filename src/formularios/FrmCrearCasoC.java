@@ -5,6 +5,7 @@
  */
 package formularios;
 
+import dao.DCasoCivil;
 import javax.swing.JOptionPane;
 
 /**
@@ -12,31 +13,49 @@ import javax.swing.JOptionPane;
  * @author Usuario
  */
 public class FrmCrearCasoC extends javax.swing.JFrame {
-
-    boolean esNuevo;
-    int posActual = 0;
+    private DCasoCivil casoCivil = new DCasoCivil();
+    private boolean esNuevo=true;
+    private int posActual = 0;
+    private int idCaso = 0; 
+    private String caso= "";
     
     private void limpiar(){
-        esNuevo = true;
-        TfCedula.setText(null);
-        TfNombres.setText(null);
-        TfApellidos.setText(null);
-        TfEdad.setText(null);
-        TfEstadoCivil.setText(null);
-        TfProfesion.setText(null);
-        TfSexo.setText(null);
-        TfDireccionDomicilio.setText(null);
         TfFecha.setText(null);
         TfHonorarios.setText(null);
         TfDescripcion.setText(null);
         TfPoderGeneralJudicial.setText(null);
-        TfCedula.requestFocus();
+        TfFecha.requestFocus();
+    }
+    
+    private void mostrarEnTF(int fila){
+        if(!casoCivil.getLista().isEmpty()){
+            caso = casoCivil.getLista().get(fila).getTipoCaso();
+            TfEstado.setText(casoCivil.getLista().get(fila).getEstadoCaso());
+            TfDescripcion.setText(casoCivil.getLista().get(fila).getDescripcionProblema());
+            TfFecha.setText(String.valueOf(casoCivil.getLista().get(fila).getFecha()));
+            TfHonorarios.setText(String.valueOf(casoCivil.getLista().get(fila).getHonorarios()));
+            TfPoderGeneralJudicial.setText(casoCivil.getLista().get(fila).getPoderGeneralJudicial());
+            idCaso = casoCivil.getLista().get(fila).getId_caso();
+            esNuevo = false;
+            
+            int ultReg = casoCivil.getLista().size();
+            LbCantidad.setText("" + (fila + 1) + " de " + ultReg);
+            TfFecha.requestFocus();
+    
+    
+        }else{
+            limpiar();
+        
+        }
+    
+    
     }
     /**
      * Creates new form FrmCasoC
      */
     public FrmCrearCasoC() {
         initComponents();
+        
     }
 
     /**
@@ -48,28 +67,6 @@ public class FrmCrearCasoC extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        TfNombres = new javax.swing.JTextField();
-        TfApellidos = new javax.swing.JTextField();
-        TfEdad = new javax.swing.JTextField();
-        TfEstadoCivil = new javax.swing.JTextField();
-        TfProfesion = new javax.swing.JTextField();
-        TfDireccionDomicilio = new javax.swing.JTextField();
-        TfSexo = new javax.swing.JTextField();
-        jLabel10 = new javax.swing.JLabel();
-        jLabel12 = new javax.swing.JLabel();
-        jLabel13 = new javax.swing.JLabel();
-        TfDescripcion = new javax.swing.JTextField();
-        jLabel2 = new javax.swing.JLabel();
-        TfHonorarios = new javax.swing.JTextField();
-        jLabel3 = new javax.swing.JLabel();
-        TfPoderGeneralJudicial = new javax.swing.JTextField();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel14 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        TfFecha = new javax.swing.JTextField();
-        jLabel6 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
         jToolBar2 = new javax.swing.JToolBar();
         BtnNuevo = new javax.swing.JButton();
         BtnGuardar = new javax.swing.JButton();
@@ -77,36 +74,23 @@ public class FrmCrearCasoC extends javax.swing.JFrame {
         jSeparator7 = new javax.swing.JToolBar.Separator();
         jSeparator3 = new javax.swing.JToolBar.Separator();
         BtnAnterior = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
+        LbCantidad = new javax.swing.JLabel();
         BtnSiguiente = new javax.swing.JButton();
         jSeparator4 = new javax.swing.JToolBar.Separator();
         BtnActualizarBD = new javax.swing.JButton();
-        jLabel9 = new javax.swing.JLabel();
-        TfCedula = new javax.swing.JTextField();
+        jPanel1 = new javax.swing.JPanel();
+        jLabel14 = new javax.swing.JLabel();
+        TfFecha = new javax.swing.JTextField();
+        jLabel12 = new javax.swing.JLabel();
+        TfHonorarios = new javax.swing.JTextField();
+        TfDescripcion = new javax.swing.JTextField();
+        jLabel10 = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
+        TfPoderGeneralJudicial = new javax.swing.JTextField();
+        jLabel17 = new javax.swing.JLabel();
+        TfEstado = new javax.swing.JTextField();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        jLabel10.setText("Descripción del problema:");
-
-        jLabel12.setText("Honorarios:");
-
-        jLabel13.setText("Poder General Judicial");
-
-        jLabel2.setText("Cédula:");
-
-        jLabel3.setText("Nombres:");
-
-        jLabel4.setText("Apellidos:");
-
-        jLabel14.setText("Fecha:");
-
-        jLabel5.setText("Edad:");
-
-        jLabel6.setText("Estado Civil:");
-
-        jLabel7.setText("Profesión:");
-
-        jLabel8.setText("Dirección de domicilio:");
+        setTitle("Casos Civiles");
 
         jToolBar2.setRollover(true);
 
@@ -160,14 +144,19 @@ public class FrmCrearCasoC extends javax.swing.JFrame {
         });
         jToolBar2.add(BtnAnterior);
 
-        jLabel1.setText("0 de 0");
-        jToolBar2.add(jLabel1);
+        LbCantidad.setText("0 de 0");
+        jToolBar2.add(LbCantidad);
 
         BtnSiguiente.setIcon(new javax.swing.ImageIcon(getClass().getResource("/formularios/iconos/next.png"))); // NOI18N
         BtnSiguiente.setText("Siguiente");
         BtnSiguiente.setFocusable(false);
         BtnSiguiente.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         BtnSiguiente.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        BtnSiguiente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnSiguienteActionPerformed(evt);
+            }
+        });
         jToolBar2.add(BtnSiguiente);
         jToolBar2.add(jSeparator4);
 
@@ -176,15 +165,87 @@ public class FrmCrearCasoC extends javax.swing.JFrame {
         BtnActualizarBD.setFocusable(false);
         BtnActualizarBD.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         BtnActualizarBD.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        jToolBar2.add(BtnActualizarBD);
-
-        jLabel9.setText("Sexo:");
-
-        TfCedula.addActionListener(new java.awt.event.ActionListener() {
+        BtnActualizarBD.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                TfCedulaActionPerformed(evt);
+                BtnActualizarBDActionPerformed(evt);
             }
         });
+        jToolBar2.add(BtnActualizarBD);
+
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Datos Caso Civil"));
+
+        jLabel14.setText("Fecha:");
+
+        jLabel12.setText("Honorarios:");
+
+        jLabel10.setText("Descripción del problema:");
+
+        jLabel13.setText("Poder General Judicial");
+
+        jLabel17.setText("Estado del Caso:");
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(28, 28, 28)
+                        .addComponent(jLabel14)
+                        .addGap(18, 18, 18)
+                        .addComponent(TfFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(19, 19, 19)
+                        .addComponent(jLabel12)
+                        .addGap(33, 33, 33)
+                        .addComponent(TfHonorarios, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(TfEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 79, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel13)
+                        .addGap(19, 19, 19)
+                        .addComponent(TfPoderGeneralJudicial, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(jLabel10)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(TfDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(134, 134, 134))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(20, 20, 20)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel14)
+                            .addComponent(TfFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(90, 90, 90)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(jLabel13)
+                                    .addComponent(TfPoderGeneralJudicial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(TfEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel17)))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(34, 34, 34)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(TfHonorarios, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel12)))))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(TfDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel10))))
+                .addContainerGap(76, Short.MAX_VALUE))
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -193,117 +254,21 @@ public class FrmCrearCasoC extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(19, 19, 19)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel3)
-                                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(TfNombres, javax.swing.GroupLayout.PREFERRED_SIZE, 306, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(TfCedula, javax.swing.GroupLayout.PREFERRED_SIZE, 306, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(20, 20, 20)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                            .addComponent(jLabel4)
-                                            .addComponent(jLabel5)))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addContainerGap()
-                                        .addComponent(jLabel6))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                        .addContainerGap()
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                            .addComponent(jLabel7)
-                                            .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(TfApellidos, javax.swing.GroupLayout.PREFERRED_SIZE, 306, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(TfEdad, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(TfEstadoCivil, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(TfProfesion, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(TfSexo, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel10)
-                            .addComponent(jLabel12)
-                            .addComponent(jLabel14)
-                            .addComponent(jLabel13))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(TfFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(TfHonorarios, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(TfDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(TfPoderGeneralJudicial, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(18, 18, 18)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(132, 132, 132)
-                        .addComponent(jToolBar2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(TfDireccionDomicilio, javax.swing.GroupLayout.PREFERRED_SIZE, 315, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(17, Short.MAX_VALUE))
+                        .addGap(200, 200, 200)
+                        .addComponent(jToolBar2, javax.swing.GroupLayout.PREFERRED_SIZE, 424, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(10, 10, 10)
-                        .addComponent(jToolBar2, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel2)
-                            .addComponent(TfCedula, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel3)
-                            .addComponent(TfNombres, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(TfApellidos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel4))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(TfEdad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel5))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(TfEstadoCivil, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel6))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(TfProfesion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel7)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel14, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(TfFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel12)
-                            .addComponent(TfHonorarios, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(TfDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel10))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel13)
-                            .addComponent(TfPoderGeneralJudicial, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel9)
-                    .addComponent(TfSexo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(TfDireccionDomicilio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 13, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(20, 20, 20)
+                .addComponent(jToolBar2, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(29, 29, 29)
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(87, 87, 87))
         );
 
         pack();
@@ -312,85 +277,103 @@ public class FrmCrearCasoC extends javax.swing.JFrame {
     private void BtnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnNuevoActionPerformed
         // TODO add your handling code here:
         limpiar();
+        esNuevo = true;
     }//GEN-LAST:event_BtnNuevoActionPerformed
 
     private void BtnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnGuardarActionPerformed
         // TODO add your handling code here:
-        if(TfCedula.getText().equals(null)){
-            JOptionPane.showMessageDialog(this, "Debe ingresar el numero de cedula", "Caso Penal", JOptionPane.WARNING_MESSAGE);
-            this.TfCedula.requestFocus();
-            return;
-        }
-        if(TfNombres.getText().equals(null)){
-            JOptionPane.showMessageDialog(this, "Debe ingresar los nomnbre", "Caso Penal", JOptionPane.WARNING_MESSAGE);
-            this.TfNombres.requestFocus();
-            return;
-        }
-        if(TfApellidos.getText().equals(null)){
-            JOptionPane.showMessageDialog(this, "Debe ingresar los apellidos", "Caso Penal", JOptionPane.WARNING_MESSAGE);
-            this.TfApellidos.requestFocus();
-            return;
-        }
-        if(TfEdad.getText().equals(null)){
-            JOptionPane.showMessageDialog(this, "Debe ingresar la edad", "Caso Penal", JOptionPane.WARNING_MESSAGE);
-            this.TfEdad.requestFocus();
-            return;
-        }
-        if(TfEstadoCivil.getText().equals(null)){
-            JOptionPane.showMessageDialog(this, "Debe ingresar el estado civil", "Caso Penal", JOptionPane.WARNING_MESSAGE);
-            this.TfEstadoCivil.requestFocus();
-            return;
-        }
-        if(TfProfesion.getText().equals(null)){
-            JOptionPane.showMessageDialog(this, "Debe ingresar la profesion", "Caso Penal", JOptionPane.WARNING_MESSAGE);
-            this.TfProfesion.requestFocus();
-            return;
-        }
-        if(TfSexo.getText().equals(null)){
-            JOptionPane.showMessageDialog(this, "Debe ingresar el sexo", "Caso Penal", JOptionPane.WARNING_MESSAGE);
-            this.TfSexo.requestFocus();
-            return;
-        }
-        if(TfDireccionDomicilio.getText().equals(null)){
-            JOptionPane.showMessageDialog(this, "Debe ingresar la dirección del domicilio", "Caso Penal", JOptionPane.WARNING_MESSAGE);
-            this.TfDireccionDomicilio.requestFocus();
-            return;
-        }
         
+        if(TfEstado.getText().equals(null)){
+            JOptionPane.showMessageDialog(this, "Debe ingresar la Estado", "Caso_Civil", JOptionPane.WARNING_MESSAGE);
+            this.TfFecha.requestFocus();
+            return;
+        }
         if(TfFecha.getText().equals(null)){
-            JOptionPane.showMessageDialog(this, "Debe ingresar la fecha", "Caso Penal", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Debe ingresar la fecha", "Caso_Civil", JOptionPane.WARNING_MESSAGE);
             this.TfFecha.requestFocus();
             return;
         }
         if(TfHonorarios.getText().equals(null)){
-            JOptionPane.showMessageDialog(this, "Debe ingresar los honorarios", "Caso Penal", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Debe ingresar los honorarios", "Caso_Civil", JOptionPane.WARNING_MESSAGE);
             this.TfHonorarios.requestFocus();
             return;
         }
         if(TfDescripcion.getText().equals(null)){
-            JOptionPane.showMessageDialog(this, "Debe ingresar la descripción", "Caso Penal", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Debe ingresar la descripción", "Caso_Civil", JOptionPane.WARNING_MESSAGE);
             this.TfDescripcion.requestFocus();
             return;
         }
         if(TfPoderGeneralJudicial.getText().equals(null)){
-            JOptionPane.showMessageDialog(this, "Debe ingresar el nombramiento del defensor", "Caso Penal", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Debe ingresar el nombramiento del defensor", "Caso_Civil", JOptionPane.WARNING_MESSAGE);
             this.TfPoderGeneralJudicial.requestFocus();
             return;
         }
+        
+        int b = 0;
+        if(esNuevo){
+            
+            b = casoCivil.agregarCasoCivil(TfDescripcion.getText(), TfFecha.getText(), TfEstado.getText(), Float.parseFloat(TfHonorarios.getText()), TfPoderGeneralJudicial.getText());
+        }else{
+        
+            b = casoCivil.editarCasoCivil(idCaso, TfDescripcion.getText(), TfFecha.getText(), TfEstado.getText(), Float.parseFloat(TfHonorarios.getText()), TfPoderGeneralJudicial.getText());
+        }
+        
+        if (b == 1){
+        JOptionPane.showMessageDialog(this, "Registro guardado...",
+            "Caso_Civil", JOptionPane.INFORMATION_MESSAGE);
+        posActual = casoCivil.getLista().size();
+        
+        }else{
+            JOptionPane.showMessageDialog(this, "Error al guardar registro",
+                    "Caso_Civil", JOptionPane.ERROR_MESSAGE);
+              
+        
+        }
+        
+        this.mostrarEnTF(0);
+        limpiar();
     }//GEN-LAST:event_BtnGuardarActionPerformed
 
     private void BtnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnEliminarActionPerformed
         // TODO add your handling code here:
-
+        int resp = JOptionPane.showConfirmDialog(this, 
+                "¿Realmente desea eliminar el Caso" + this.TfDescripcion.getText() + 
+                "?", "Caso_Civil",
+                 JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+        if (resp == 0){
+            int b = casoCivil.eliminarCasoCivil(idCaso);
+            if(b==1){
+                JOptionPane.showMessageDialog(this, "Registro eliminado satisfactoriamente"
+                , "Caso_Civil", JOptionPane.INFORMATION_MESSAGE);
+            }else{
+                JOptionPane.showMessageDialog(this, "Error inesperado, verifique y vuelva intentar",
+                        "Caso_Civil", JOptionPane.ERROR_MESSAGE);
+            }          
+        }
     }//GEN-LAST:event_BtnEliminarActionPerformed
 
     private void BtnAnteriorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnAnteriorActionPerformed
         // TODO add your handling code here
+        if (posActual == 0) posActual = casoCivil.getLista().size();
+        posActual--;
+        this.mostrarEnTF(posActual);
     }//GEN-LAST:event_BtnAnteriorActionPerformed
 
-    private void TfCedulaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TfCedulaActionPerformed
-        // TODO add your handling code here
-    }//GEN-LAST:event_TfCedulaActionPerformed
+    private void BtnSiguienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnSiguienteActionPerformed
+        // TODO add your handling code here:
+       posActual++;
+       if (posActual == casoCivil.getLista().size()) posActual = 0;  
+       this.mostrarEnTF(posActual);
+    }//GEN-LAST:event_BtnSiguienteActionPerformed
+
+    private void BtnActualizarBDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnActualizarBDActionPerformed
+        // TODO add your handling code here:
+        String msn = casoCivil.actualizarBD();
+        JOptionPane.showMessageDialog(this, msn, "Actualizar Base de Datos",
+                JOptionPane.INFORMATION_MESSAGE);
+        posActual =0;
+        mostrarEnTF(posActual);
+    }//GEN-LAST:event_BtnActualizarBDActionPerformed
 
     /**
      * @param args the command line arguments
@@ -435,31 +418,18 @@ public class FrmCrearCasoC extends javax.swing.JFrame {
     private javax.swing.JButton BtnGuardar;
     private javax.swing.JButton BtnNuevo;
     private javax.swing.JButton BtnSiguiente;
-    private javax.swing.JTextField TfApellidos;
-    private javax.swing.JTextField TfCedula;
+    private javax.swing.JLabel LbCantidad;
     private javax.swing.JTextField TfDescripcion;
-    private javax.swing.JTextField TfDireccionDomicilio;
-    private javax.swing.JTextField TfEdad;
-    private javax.swing.JTextField TfEstadoCivil;
+    private javax.swing.JTextField TfEstado;
     private javax.swing.JTextField TfFecha;
     private javax.swing.JTextField TfHonorarios;
-    private javax.swing.JTextField TfNombres;
     private javax.swing.JTextField TfPoderGeneralJudicial;
-    private javax.swing.JTextField TfProfesion;
-    private javax.swing.JTextField TfSexo;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
+    private javax.swing.JLabel jLabel17;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JToolBar.Separator jSeparator3;
     private javax.swing.JToolBar.Separator jSeparator4;
     private javax.swing.JToolBar.Separator jSeparator7;

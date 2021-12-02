@@ -13,14 +13,14 @@ public class Caso{
     
     private int id_caso;
     private String descripcionProblema;
-    private int fecha;
+    private String fecha;
     private String tipoCaso; //1 = Civil , 2 = Laboral, 3 = Penal
-    private int estadoCaso; // 1 = Abierto, 2 = Cerrado
+    private String estadoCaso; 
 
     public Caso() {
     }
 
-    public Caso(int id_caso, String descripcionProblema, int fecha, String tipoCaso, int estadoCaso) {
+    public Caso(int id_caso, String descripcionProblema, String fecha, String tipoCaso, String estadoCaso) {
         this.id_caso = id_caso;
         this.descripcionProblema = descripcionProblema;
         this.fecha = fecha;
@@ -44,11 +44,11 @@ public class Caso{
         this.descripcionProblema = descripcionProblema;
     }
 
-    public int getFecha() {
+    public String getFecha() {
         return fecha;
     }
 
-    public void setFecha(int fecha) {
+    public void setFecha(String fecha) {
         this.fecha = fecha;
     }
 
@@ -60,13 +60,15 @@ public class Caso{
         this.tipoCaso = tipoCaso;
     }
 
-    public int getEstadoCaso() {
+    public String getEstadoCaso() {
         return estadoCaso;
     }
 
-    public void setEstadoCaso(int estadoCaso) {
+    public void setEstadoCaso(String estadoCaso) {
         this.estadoCaso = estadoCaso;
     }
+
+    
 
     
 }

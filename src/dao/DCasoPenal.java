@@ -27,12 +27,12 @@ public class DCasoPenal {
     public DCasoPenal() {
         try {
             conn = conexion.obtenerConexion();
-            mostrarCasoPenal = conn.prepareStatement("Select * from caso");
-            insertarCasoPenal = conn.prepareStatement("Insert Into caso(id_caso,"
-                    + " description, fecha_caso, id_cliente, honorarios, poder_general_judicial, monto_a_litigar, porcentaje_ganancia, nombramiento_defensor) Values(?, ?, ?, ?, ?, ?, ?, ?, ?)");
-            modificarCasoPenal = conn.prepareStatement("Update caso set description = ?,"
-                    + " fecha_caso = ?, id_cliente  = ?, honorarios = ?, poder_general_judicial = ?, monto_a_litigar = ?, porcentaje_ganancia = ?, nombramiento_defensor = ? where id_caso = ?");
-            eliminarCasoPenal = conn.prepareStatement("Delete From caso where id_caso = ?");
+            mostrarCasoPenal = conn.prepareStatement("Select * from Caso_Penal");
+            insertarCasoPenal = conn.prepareStatement("Insert Into Caso_Penal(tipoCaso,"
+                    + " descripcion, estadoCaso, fecha, honorarios, nombramientoDefensor) Values(?, ?, ?, ?, ?, ?)");
+            modificarCasoPenal = conn.prepareStatement("Update Caso_Penal set tipoCaso = ?,"
+                    + " descripcion = ?, estadoCaso = ?, fecha = ?, honorarios = ?, nombramientoDefensor = ? where CasoP_id = ?");
+            eliminarCasoPenal = conn.prepareStatement("Delete From CasoPenal where CasoP_id = ?");
             listaCasoPenal = new ArrayList<>();
             
             listaCasoPenal = listarRegistro();
@@ -50,13 +50,13 @@ public class DCasoPenal {
             result = new ArrayList<>();
             while(rs.next()){
                 result.add(new Caso_Penal(
-                        rs.getInt("id_caso"),
-                        rs.getString("descripcionProblema"),
-                        rs.getInt("fecha"),
+                        rs.getInt("CasoP_id"),
+                        rs.getString("descripcion"),
+                        rs.getString("fecha"),
                         rs.getString("tipoCaso"),
-                        rs.getInt("estadoCaso"),
+                        rs.getString("estadoCaso"),
                         rs.getFloat("honorarios"),
-                        rs.getBoolean("nombremientoDefensor"),
+                        rs.getString("nombramientoDefensor"),
                         1 // estado Original que viene desde la BD
                 ));
             }
@@ -72,14 +72,14 @@ public class DCasoPenal {
         return result;
     }
     
-    public int agregarCasoPenal(int id_caso, String descripcionProblema, int fecha, String tipoCaso, int estadoCaso, float honorarios, boolean nombramientoDefensor, int estadoBD){
+    public int agregarCasoPenal(String descripcionProblema, String fecha, String estadoCaso, float honorarios, String nombramientoDefensor){
         int b = 0;
         try{
             listaCasoPenal.add(new Caso_Penal(0,
                     descripcionProblema,
                     fecha,
-                    "Civil",
-                    1,
+                    "Penal",
+                    estadoCaso,
                     honorarios,
                     nombramientoDefensor,
                     4 // estado Nuevo registro sin guardar en la BD 
@@ -91,14 +91,14 @@ public class DCasoPenal {
         return b;
     }
     
-    public int editarCasoPenal(int id_caso, String descripcionProblema, int fecha, String tipoCaso, int estadoCaso, float honorarios, boolean nombramientoDefensor, int estadoBD){
+    public int editarCasoPenal(int id_caso, String descripcionProblema, String fecha, String estadoCaso, float honorarios, String nombramientoDefensor){
         try{
             Caso_Penal Caso_Penal  = new Caso_Penal(
                     id_caso,
                     descripcionProblema,
                     fecha,
-                    "Civil",
-                    1,
+                    "Penal",
+                    estadoCaso,
                     honorarios,
                     nombramientoDefensor,
                     2 // estado Modificado en la lista, no guardado en la BD
@@ -109,7 +109,7 @@ public class DCasoPenal {
                    a.setFecha(Caso_Penal.getFecha());
                    a.setTipoCaso(Caso_Penal.getTipoCaso());
                    a.setHonorarios(Caso_Penal.getHonorarios());
-                   a.setNombramientoDefensor(Caso_Penal.isNombramientoDefensor());
+                   a.setNombramientoDefensor(Caso_Penal.getNombramientoDefensor());
                    if(a.getEstadoBD()!=0) a.setEstadoBD(Caso_Penal.getEstadoBD()); 
                    return 1;
                } 
@@ -138,12 +138,12 @@ public class DCasoPenal {
     public int agregarRegistroBD(Caso_Penal Caso_Penal) {
         int result = 0;
         try {
-            insertarCasoPenal.setString(1, Caso_Penal.getDescripcionProblema());
-            insertarCasoPenal.setInt(2, Caso_Penal.getFecha());
-            insertarCasoPenal.setString(3, Caso_Penal.getTipoCaso());
-            insertarCasoPenal.setInt(4, Caso_Penal.getEstadoCaso());
+            insertarCasoPenal.setString(1, Caso_Penal.getTipoCaso());
+            insertarCasoPenal.setString(2, Caso_Penal.getDescripcionProblema());
+            insertarCasoPenal.setString(3, Caso_Penal.getEstadoCaso());
+            insertarCasoPenal.setString(4, Caso_Penal.getFecha());
             insertarCasoPenal.setFloat(5, Caso_Penal.getHonorarios());
-            insertarCasoPenal.setBoolean(6, Caso_Penal.isNombramientoDefensor());
+            insertarCasoPenal.setString(6, Caso_Penal.getNombramientoDefensor());
             result = insertarCasoPenal.executeUpdate();
         } catch (SQLException ex) {
             ex.printStackTrace();
@@ -155,12 +155,12 @@ public class DCasoPenal {
     public int modificarRegistroBD(Caso_Penal Caso_Penal) {
         int result = 0;
         try {
-            modificarCasoPenal.setString(1, Caso_Penal.getDescripcionProblema());
-            modificarCasoPenal.setInt(2, Caso_Penal.getFecha());
-            modificarCasoPenal.setString(3, Caso_Penal.getTipoCaso());
-            modificarCasoPenal.setInt(4, Caso_Penal.getEstadoCaso());
+            modificarCasoPenal.setString(1, Caso_Penal.getTipoCaso());
+            modificarCasoPenal.setString(2, Caso_Penal.getDescripcionProblema());
+            modificarCasoPenal.setString(3, Caso_Penal.getEstadoCaso());
+            modificarCasoPenal.setString(4, Caso_Penal.getFecha());
             modificarCasoPenal.setFloat(5, Caso_Penal.getHonorarios());
-            modificarCasoPenal.setBoolean(6, Caso_Penal.isNombramientoDefensor());
+            modificarCasoPenal.setString(6, Caso_Penal.getNombramientoDefensor());
             result = modificarCasoPenal.executeUpdate();
         } catch (SQLException ex) {
             ex.printStackTrace();

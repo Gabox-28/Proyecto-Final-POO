@@ -11,23 +11,23 @@ package modelos;
  */
 public class Caso_Civil extends Caso{
     
-    public cliente clienteC;
-    public Caso casoC;
     
     private float honorarios;
-    private boolean poderGeneralJudicial;
+    private String poderGeneralJudicial;
     private int estadoBD;
     
 
     public Caso_Civil() {
     }
 
-    public Caso_Civil(int id_caso, String descripcionProblema, int fecha, String tipoCaso, int estadoCaso, float honorarios, boolean poderGeneralJudicial, int estadoBD) {
+    public Caso_Civil(int id_caso, String descripcionProblema, String fecha, String tipoCaso, String estadoCaso, float honorarios, String poderGeneralJudicial, int estadoBD) {
         super(id_caso, descripcionProblema, fecha, tipoCaso, estadoCaso);
         this.honorarios = honorarios;
         this.poderGeneralJudicial = poderGeneralJudicial;
         this.estadoBD = estadoBD;
     }
+
+    
 
     public float getHonorarios() {
         return honorarios;
@@ -37,13 +37,7 @@ public class Caso_Civil extends Caso{
         this.honorarios = honorarios;
     }
 
-    public boolean isPoderGeneralJudicial() {
-        return poderGeneralJudicial;
-    }
-
-    public void setPoderGeneralJudicial(boolean poderGeneralJudicial) {
-        this.poderGeneralJudicial = poderGeneralJudicial;
-    }
+    
 
     public int getEstadoBD() {
         return estadoBD;
@@ -51,6 +45,14 @@ public class Caso_Civil extends Caso{
 
     public void setEstadoBD(int estadoBD) {
         this.estadoBD = estadoBD;
+    }
+
+    public String getPoderGeneralJudicial() {
+        return poderGeneralJudicial;
+    }
+
+    public void setPoderGeneralJudicial(String poderGeneralJudicial) {
+        this.poderGeneralJudicial = poderGeneralJudicial;
     }
 
     
